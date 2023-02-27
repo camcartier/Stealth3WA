@@ -4,11 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, PlayerInput.IMainActions
+public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
 {
     #region Essentials
     private Vector3 _move;
     private Rigidbody _rb;
+    #endregion
+    #region Camera
+    public float turnSmoothTime = 0.1f;
+    float turnSmoothVelocity;
+    public Transform cam;
     #endregion
 
     #region MoveStats
@@ -55,33 +60,6 @@ public class PlayerController : MonoBehaviour, PlayerInput.IMainActions
     }
 
 
-    public void OnCrouch(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {   
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        Debug.Log("move");
-        _move = context.ReadValue<Vector3>();
-        
-    }
-
-    public void OnRun(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        Debug.Log("run");
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnUse(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -108,7 +86,10 @@ public class PlayerController : MonoBehaviour, PlayerInput.IMainActions
         if (_move.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(_move.x, _move.z) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f,targetAngle,0f);
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f,angle,0f);
+
+            Vector3 moveDir = Quaternion.Euler(0f,targetAngle,0f) *Vector3.forward;
         }
 
         //getting button values 'cause we need to keep pushing the button
