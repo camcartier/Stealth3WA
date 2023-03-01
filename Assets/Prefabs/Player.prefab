@@ -55,6 +55,10 @@ MonoBehaviour:
   - {fileID: 7414934589240208972}
   - {fileID: 5316431956770656837}
   - {fileID: 7025424666095185043}
+  _rayLength: 1.5
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1680823673714803169
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,9 +323,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.27524626, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1280051692472357851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +355,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   groundColliders: []
+  _yFloorOffset: 1
+  _sneakValue: {fileID: 0}
+  _jumpHeight: {fileID: 0}
+  _attPower: {fileID: 0}
+  _maxhealth: {fileID: 0}
+  _currenthealth: {fileID: 0}
 --- !u!95 &1559866772
 Animator:
   serializedVersion: 5

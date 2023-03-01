@@ -73,10 +73,13 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     #endregion
 
     #region FloorDetector
+    [Header("FloorDetector")]
+    [SerializeField] private float _yFloorOffset = 1f;
     private FloorDetector floorDetector;
     #endregion
 
     #region PlayerStats
+    [Header("PlayerStats")]
     [SerializeField] FloatVariables _sneakValue;
     [SerializeField] IntVariables _jumpHeight;
     [SerializeField] IntVariables _attPower;
@@ -119,7 +122,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         groundColliders = Physics.OverlapBox(_groundChecker.position, _boxDimension, Quaternion.identity, _groundMask);
         if (groundColliders.Length > 0)
         {
-            Debug.Log(groundColliders[0].name);
+            //Debug.Log(groundColliders[0].name);
             _isGrounded = true;
         }
         else { 
@@ -129,15 +132,28 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
 
     void FixedUpdate()
     {
+        /*
+        if (_isGrounded)
+        {
+            StickToGround();
+        }
+        else
+        {
+            _direction.y = _rb.velocity.y;
+        }*/
+
+
+        //on saute ou on tombe
+        if (!_isGrounded || _rb.velocity.y<0 || _rb.velocity.y > 0)
+        {
+            _direction.y = _rb.velocity.y;
+        }
         Move();
 
     }
     void GetInput()
     {
         _move = playerInput.Main.Move.ReadValue<Vector3>();
-        if (!_isCrouching && !_isRunning && _move.magnitude > 0) { _isWalking = true; _crouchSpeed = 1f; _runSpeed = 1f; }
-        if (_isCrouching) { _crouchSpeed = 0.5f; _runSpeed = 1f; }
-        if (_isRunning) { _runSpeed = 2f; _crouchSpeed = 1f; }
 
         //getting button values 'cause we need to keep pushing the button
         _isCrouching = playerInput.Main.Crouch.ReadValue<float>()>0;
@@ -146,7 +162,8 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         //triggered saves the info once on the frame it is called on
         if (playerInput.Main.Jump.triggered && _isGrounded)
         {
-            Debug.Log("has jumped " + groundColliders.Length);
+
+            //Debug.Log("has jumped " + groundColliders.Length);
             _isGrounded = false;
             Debug.Log("grounded false");
             Jump();//Debug.Log("jump");
@@ -172,7 +189,6 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     //this is currently working except for camera rotation which are inverted
     private void Move()
     {
-
         _direction = _cameraTransform.transform.forward * _move.z + _cameraTransform.transform.right * _move.x;
         if(_direction.magnitude >= 0.1f)
         {
@@ -189,22 +205,11 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         }
         else { _rb.velocity = new Vector3(0, _rb.velocity.y, 0); }
 
-
-
+        if (!_isCrouching && !_isRunning && _move.magnitude > 0) { _isWalking = true; _crouchSpeed = 1f; _runSpeed = 1f; }
+        if (_isCrouching) { _crouchSpeed = 0.5f; _runSpeed = 1f; }
+        if (_isRunning) { _runSpeed = 2f; _crouchSpeed = 1f; }
     }
 
-    #region test
-    //did not work :p
-    private void InvertMouse()
-    {
-        //big nope here
-        /*
-        rotY = Input.GetAxis("Mouse X") * sensitivity;
-        rotX = Input.GetAxis("Mouse X") * sensitivity;
-        _camera.transform.Rotate(rotX, rotY, 0);
-        */
-    }
-    #endregion 
 
     private void Jump()
     {
@@ -213,9 +218,15 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         _rb.AddForce(0, _jumpForce, 0,  ForceMode.Impulse);
     }
 
+    //bugged
     private void StickToGround()
     {
+        Vector3 averagePosition = floorDetector.AverageHeight();
 
+        Vector3 newPosition = new Vector3(_rb.position.x, (averagePosition.y + _yFloorOffset), _rb.position.z);
+        //_rb.MovePosition(newPosition);
+        transform.position = newPosition; ;
+        _direction.y = 0;
     }
 
     private void OnDrawGizmos()

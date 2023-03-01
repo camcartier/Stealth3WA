@@ -31,7 +31,7 @@ public class FloorDetector : MonoBehaviour
         }
     }
 
-    private void AverageHeight()
+    public Vector3 AverageHeight()
     {
         int hitCount = 0;
         Vector3 combinedPosition = Vector3.zero;
@@ -41,8 +41,18 @@ public class FloorDetector : MonoBehaviour
         {
             if (Physics.Raycast(t.position, Vector3.down, out hit, _rayLength, _groundMask))
             {
-
+                hitCount++;
+                combinedPosition += hit.point;
             }
         }
+
+        Vector3 averagePosition = Vector3.zero;
+
+        if(hitCount> 0)
+        {
+            averagePosition = combinedPosition/hitCount;
+        }
+
+        return averagePosition;
     }
 }
