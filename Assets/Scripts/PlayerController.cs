@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     #region DATA ALL(champs)
     #region Essentials
     //move est l'input recupéré par le new input system
-    private Vector3 _move;
+    public Vector3 _move;
     //direction est le vecteur recomposé avec le forward/right et les inputs
     private Vector3 _direction; 
     //ce component est requis par le script
@@ -56,12 +56,13 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     #endregion
 
     #region Movement Bools
-    private bool _isCrouching;
-    private bool _isRunning;
-    private bool _isWalking;
-    private bool _isGrounded;
-    private bool _canJump;
-    private int _jumpNumber;
+    public bool _isCrouching;
+    public bool _isRunning;
+    public bool _isWalking;
+    public bool _isGrounded;
+    public bool _canJump;
+    [HideInInspector]
+    public int _jumpNumber;
     #endregion
 
     #region GroundChecker
@@ -151,6 +152,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         Move();
 
     }
+
     void GetInput()
     {
         _move = playerInput.Main.Move.ReadValue<Vector3>();
@@ -158,6 +160,13 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         //getting button values 'cause we need to keep pushing the button
         _isCrouching = playerInput.Main.Crouch.ReadValue<float>()>0;
         _isRunning = playerInput.Main.Run.ReadValue<float>()>0;
+
+        /*
+        if (_isWalking)
+        {
+            _animator.SetBool("walking", true);
+        }
+        else { _animator.SetBool("walking", false);  }*/
 
         //triggered saves the info once on the frame it is called on
         if (playerInput.Main.Jump.triggered && _isGrounded)
@@ -206,7 +215,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         else { _rb.velocity = new Vector3(0, _rb.velocity.y, 0); }
 
         if (!_isCrouching && !_isRunning && _move.magnitude > 0) { _isWalking = true; _crouchSpeed = 1f; _runSpeed = 1f; }
-        if (_isCrouching) { _crouchSpeed = 0.5f; _runSpeed = 1f; }
+        if (_isCrouching) { _crouchSpeed = 0.75f; _runSpeed = 1f; }
         if (_isRunning) { _runSpeed = 2f; _crouchSpeed = 1f; }
     }
 
