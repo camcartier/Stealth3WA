@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac3d0aeff648f1e41a6398e4d55aed1e
+guid: cd2f6f4180efdc14fbc8f956435bdd34
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jumping
+      name: mixamo.com
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 113
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -47,12 +47,12 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -104,7 +104,20 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - 006cff80263ab0b448db0b155440c3af
+  - cf523e111a7d73c4d8eb398b3971c240
+  - b3d22ad2bce403c4487024f88c2cb334
+  - fe441dacc30bbbd459534d63492b2cf2
+  - ac3d0aeff648f1e41a6398e4d55aed1e
+  - 57d991f40e297b24cb6ea80a0786dc78
+  - 9b5a5657939cd3542a7a01f775f0f66e
+  - c2b39725e9665ee4e9436726873c2013
+  - cb33a31935088c84c9c9a0ac49fa4963
+  - d395c181446e84642b7af6446d9115d5
+  - 5c5e31d73d3ecc6479919d0ee2c28621
+  - be684e981dced9f4ba708bea1f0b99b0
+  - aabfc0253c21488478afcc7493311b03
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -912,12 +925,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: cd2f6f4180efdc14fbc8f956435bdd34,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 2
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0

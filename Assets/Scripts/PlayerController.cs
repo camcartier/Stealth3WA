@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         else { _rb.velocity = new Vector3(0, _rb.velocity.y, 0); }
 
         if (!_isCrouching && !_isRunning && _move.magnitude > 0) { _isWalking = true; _crouchSpeed = 1f; _runSpeed = 1f; }
-        if (_isCrouching) { _crouchSpeed = 0.75f; _runSpeed = 1f; }
+        if (_isCrouching) { _crouchSpeed = 0.95f; _runSpeed = 1f; }
         if (_isRunning) { _runSpeed = 2f; _crouchSpeed = 1f; }
     }
 
