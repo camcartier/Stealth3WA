@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu]
 public class IntVariables : ScriptableObject
 {
-    public int variable;
+    public int value;
 }

@@ -12,7 +12,16 @@ public class GameManager : MonoBehaviour
     #endregion
     #region Loot
     #endregion
+    #region Detection
+    //will need to be individual to the enemy
+    [SerializeField] IntVariables _soundMeterValue;
+    private int _soundMeterChangeTracker;
+    #endregion
 
+    private void Awake()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Start()

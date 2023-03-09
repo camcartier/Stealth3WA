@@ -5,20 +5,27 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     [Header("NoiseMeter")]
+    [SerializeField] IntVariables _noiseTracker;
     private float _maxNoiseBeforeTrigger = 100;
-    private float _noiseTracker;
+
 
     #region Essentials
     private Rigidbody _rbEnemy;
     private GameObject _player;
+    private Renderer _enemyMat;
     #endregion
 
     #region Detection Data
+    private bool _playerCanBeHeard;
     private bool _playerIsHeard;
     private bool _playerIsDetected;
     [SerializeField] private Transform[] _raySpot;
     [SerializeField] private Transform _rayOrigHead;
     [SerializeField] LayerMask _groundMask;
+
+    float waitDuration = 0.5f;
+    float timerCounterMeter = 0f;
+
     #endregion
 
     #region Loot Data
@@ -27,10 +34,13 @@ public class EnemyBehaviour : MonoBehaviour
     #endregion
 
 
+
     private void Awake()
     {
         _rbEnemy = GetComponentInChildren<Rigidbody>();
-        _player = GameObject.Find("Player");
+        _player = GameObject.Find("Azri_TPose");
+        _enemyMat = GetComponentInChildren<Renderer>();
+        _noiseTracker.value = 0;
     }
     // Start is called before the first frame update
     void Start()
@@ -41,9 +51,34 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_noiseTracker >= _maxNoiseBeforeTrigger)
+        if (_noiseTracker.value >= _maxNoiseBeforeTrigger)
         {
             SoundDetected();
+        }
+
+        if((transform.position - _player.transform.position).magnitude < 10)
+        {
+            _playerCanBeHeard = true;
+            Debug.Log("can be heard");
+        }
+        else { Debug.Log("can NOT be heard"); _playerCanBeHeard = false; }
+
+        if (_playerCanBeHeard && _player.GetComponent<PlayerController>()._isMoving)
+        {
+            timerCounterMeter += Time.deltaTime;
+            //Debug.Log("timercounter" + timerCounterMeter);
+        }
+
+        if (timerCounterMeter > waitDuration)
+        {
+            _noiseTracker.value += 2;
+            timerCounterMeter = 0;
+        }
+
+        if (_noiseTracker.value > 100)
+        {
+            Debug.Log("DETECTED");
+            _enemyMat.material.color = Color.red;
         }
     }
 
@@ -76,6 +111,12 @@ public class EnemyBehaviour : MonoBehaviour
         _playerIsHeard = true;
         _posToGo = _player.transform.position;
         //l'enemi doit se retourner et attendre un certain temps avant de bouger
+    }
+
+    IEnumerator AddSoundUnits()
+    {
+        yield return new WaitForSeconds(1);
+        _noiseTracker.value += 2;
     }
 
     private void VisualDetection()

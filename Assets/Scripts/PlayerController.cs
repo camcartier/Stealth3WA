@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     #endregion
 
     #region Movement Bools
+    public bool _isMoving;
     public bool _isCrouching;
     public bool _isRunning;
     public bool _isWalking;
@@ -99,6 +100,12 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     public bool _takeCover;
     public bool _isTakingCover;
 
+    public Vector3 _coverPos;
+
+    public bool _isInsideLight;
+
+    [SerializeField] GameObject _coverPanel;
+    [SerializeField] GameObject _isInsideLigthPanel;
 
     private void Awake()
     {
@@ -140,6 +147,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         if (_canTakeCover && _takeCover)
         {
             _isTakingCover = true;
+            TakeCover();
             _animator.SetBool("cover", true);
         }
         else { _isTakingCover = false; }
@@ -208,14 +216,18 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         if (_isCrouching)
         {
             _animator.SetBool("crouching", true);
-            Debug.Log("crouch");
         }
         if (_isRunning && _move.magnitude >0)
         {
             _animator.SetBool("running", true);
-            Debug.Log("run");
         }
 
+        if (_move.magnitude > 0.1)
+        {
+            _isMoving = true;
+            Debug.Log("is moving");
+        }
+        else { _isMoving = false; }
     }
 
     //this is currently working except for camera rotation which are inverted
@@ -245,6 +257,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
 
         _animator.SetFloat("FloatX", _direction.magnitude);
         _animator.SetFloat("FloatY", _direction.y);
+
     }
 
 
@@ -283,9 +296,47 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         if (collision.CompareTag("Cover"))
         {
             _canTakeCover = true;
-            //set active le panel de cover
+            Debug.Log("can take cover");
+            _coverPanel.SetActive(true);
+            _coverPos = collision.transform.position;
+            Debug.Log(_coverPos);
         }
-        else { _canTakeCover = false; }
+        else { _canTakeCover = false; _animator.SetBool("cover", false); }
+
+        if (collision.CompareTag("Torch"))
+        {
+            _isInsideLight = true;
+            _isInsideLigthPanel.SetActive(true);
+        }
+
     }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.CompareTag("Cover"))
+        {
+            _canTakeCover = false; _animator.SetBool("cover", false);
+            _coverPanel.SetActive(false);
+        }
+
+        if (collision.CompareTag("Torch"))
+        {
+            _isInsideLight = false;
+            _isInsideLigthPanel.SetActive(false);
+        }
+    }
+
+    private void TakeCover()
+    {
+        transform.Rotate(0, 180, 0, Space.Self);
+
+        /*
+        if (transform.position.z > _coverPos.z)
+        {
+
+
+        }*/
+    }
+
 }
 

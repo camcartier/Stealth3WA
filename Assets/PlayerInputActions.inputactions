@@ -127,6 +127,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a3e3b203-3c25-4999-83a3-d2168c2053f5",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3fb59833-7433-4ca7-97d2-e9399e7323ca",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -137,7 +148,18 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "3D Vector",
+                    "name": "",
+                    "id": "fb8640f7-65ce-4e0c-b5a6-8d7f531a6483",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "ZQSD",
                     "id": "fab8f961-a99e-4719-84b0-f92d1388aebe",
                     "path": "3DVector(mode=2)",
                     "interactions": "",
@@ -214,7 +236,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "3D Vector",
+                    "name": "Arrows",
                     "id": "77ad7159-0487-42b2-965c-4aca9582c4c3",
                     "path": "3DVector",
                     "interactions": "",
@@ -291,6 +313,83 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Joystick",
+                    "id": "a5232640-5a66-4692-856d-5ce8d869f8ea",
+                    "path": "3DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "254e8d9a-feaa-46ef-81c9-1c80d9d2518e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "d4b85cdd-9009-477a-9d7d-6eea6367d749",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "53e68080-3ba8-4a8c-84ce-4849b242a62e",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "45c29554-32e1-4941-8178-9573f53fc416",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "forward",
+                    "id": "b35b5b50-761d-4f1f-9f6f-86582b92f915",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "backward",
+                    "id": "0a0d45e5-0193-4050-ae3f-35189e37f697",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "f1564c3b-1ed8-4784-89ea-30c2aa65c05c",
                     "path": "<Mouse>/delta",
@@ -302,9 +401,75 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "Joystick",
+                    "id": "5a12a483-5ba0-4242-bbd4-a5737d2631af",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "90cf237c-534d-4162-b71a-4ed8cd6cae1a",
+                    "path": "<Gamepad>/rightStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "b506929b-fab1-4d7b-b8d0-acd74dfa59f7",
+                    "path": "<Gamepad>/rightStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "dbc402a6-de7e-4997-a6cc-a2130f80f506",
+                    "path": "<Gamepad>/rightStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "487b1ef3-9560-4ebf-a84b-234bcbfd1527",
+                    "path": "<Gamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "3679b1b5-3cfe-4f37-8b69-a69243b44dae",
                     "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cover",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04efc636-55c4-47e1-9e33-7ceaabaa8c6f",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
