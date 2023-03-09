@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     //move est l'input recupéré par le new input system
     public Vector3 _move;
     //direction est le vecteur recomposé avec le forward/right et les inputs
-    private Vector3 _direction; 
+    public Vector3 _direction; 
     //ce component est requis par le script
     private Rigidbody _rb;
     private Animator _animator;
@@ -95,6 +95,11 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
 
     #endregion
 
+    public bool _canTakeCover;
+    public bool _takeCover;
+    public bool _isTakingCover;
+
+
     private void Awake()
     {
         playerInput = new PlayerInput();
@@ -125,10 +130,20 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         {
             //Debug.Log(groundColliders[0].name);
             _isGrounded = true;
+            _animator.SetBool("grounded", true);
         }
         else { 
-            _isGrounded = false; 
+            _isGrounded = false;
+            _animator.SetBool("grounded", false);
         }
+
+        if (_canTakeCover && _takeCover)
+        {
+            _isTakingCover = true;
+            _animator.SetBool("cover", true);
+        }
+        else { _isTakingCover = false; }
+
     }
 
     void FixedUpdate()
@@ -161,6 +176,14 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         _isCrouching = playerInput.Main.Crouch.ReadValue<float>()>0;
         _isRunning = playerInput.Main.Run.ReadValue<float>()>0;
 
+        _takeCover = playerInput.Main.Cover.ReadValue<float>()>0;
+
+        if (_move.magnitude > 0.1 && !_isRunning && _isGrounded)
+        {
+            _isWalking = true;
+            _animator.SetBool("walking", true);
+        }
+        else { _isWalking = false; _animator.SetBool("walking", false); }
         /*
         if (_isWalking)
         {
@@ -187,7 +210,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
             _animator.SetBool("crouching", true);
             Debug.Log("crouch");
         }
-        if (_isRunning)
+        if (_isRunning && _move.magnitude >0)
         {
             _animator.SetBool("running", true);
             Debug.Log("run");
@@ -211,12 +234,17 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
 
             //here i put all of the speeds, makes them all relative to walk
             _rb.velocity = new Vector3(_direction.normalized.x * _walkSpeed * _crouchSpeed * _runSpeed * Time.fixedDeltaTime, _rb.velocity.y, _direction.normalized.z * _walkSpeed * _crouchSpeed * _runSpeed * Time.fixedDeltaTime);
+
         }
         else { _rb.velocity = new Vector3(0, _rb.velocity.y, 0); }
 
         if (!_isCrouching && !_isRunning && _move.magnitude > 0) { _isWalking = true; _crouchSpeed = 1f; _runSpeed = 1f; }
-        if (_isCrouching) { _crouchSpeed = 0.95f; _runSpeed = 1f; }
-        if (_isRunning) { _runSpeed = 2f; _crouchSpeed = 1f; }
+        if (_isCrouching) { _crouchSpeed = 0.85f; _runSpeed = 1f; }
+        if (_isRunning && _move.magnitude > 0) { _runSpeed = 2f; _crouchSpeed = 1f; _animator.SetBool("running", true); }
+        else { _animator.SetBool("running", false); }
+
+        _animator.SetFloat("FloatX", _direction.magnitude);
+        _animator.SetFloat("FloatY", _direction.y);
     }
 
 
@@ -224,6 +252,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     {
         //_canJump = false;
         _animator.SetTrigger("jump");
+        Debug.Log("has jumped");
         _rb.AddForce(0, _jumpForce, 0,  ForceMode.Impulse);
     }
 
@@ -247,6 +276,16 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     private void Use()
     {
         Debug.Log("use");
+    }
+
+    private void OnTriggerStay(Collider collision)
+    {
+        if (collision.CompareTag("Cover"))
+        {
+            _canTakeCover = true;
+            //set active le panel de cover
+        }
+        else { _canTakeCover = false; }
     }
 }
 

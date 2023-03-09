@@ -80,6 +80,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cover"",
+                    ""type"": ""Button"",
+                    ""id"": ""b70467ab-ce6c-4fa9-adf3-dd74286783bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -141,7 +150,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3fb59833-7433-4ca7-97d2-e9399e7323ca"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -313,6 +322,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3679b1b5-3cfe-4f37-8b69-a69243b44dae"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cover"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -327,6 +347,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Main_Crouch = m_Main.FindAction("Crouch", throwIfNotFound: true);
         m_Main_Use = m_Main.FindAction("Use", throwIfNotFound: true);
         m_Main_Camera = m_Main.FindAction("Camera", throwIfNotFound: true);
+        m_Main_Cover = m_Main.FindAction("Cover", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -392,6 +413,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_Crouch;
     private readonly InputAction m_Main_Use;
     private readonly InputAction m_Main_Camera;
+    private readonly InputAction m_Main_Cover;
     public struct MainActions
     {
         private @PlayerInput m_Wrapper;
@@ -402,6 +424,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_Main_Crouch;
         public InputAction @Use => m_Wrapper.m_Main_Use;
         public InputAction @Camera => m_Wrapper.m_Main_Camera;
+        public InputAction @Cover => m_Wrapper.m_Main_Cover;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -429,6 +452,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Camera.started -= m_Wrapper.m_MainActionsCallbackInterface.OnCamera;
                 @Camera.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnCamera;
                 @Camera.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnCamera;
+                @Cover.started -= m_Wrapper.m_MainActionsCallbackInterface.OnCover;
+                @Cover.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnCover;
+                @Cover.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnCover;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -451,6 +477,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Camera.started += instance.OnCamera;
                 @Camera.performed += instance.OnCamera;
                 @Camera.canceled += instance.OnCamera;
+                @Cover.started += instance.OnCover;
+                @Cover.performed += instance.OnCover;
+                @Cover.canceled += instance.OnCover;
             }
         }
     }
@@ -463,5 +492,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
+        void OnCover(InputAction.CallbackContext context);
     }
 }
