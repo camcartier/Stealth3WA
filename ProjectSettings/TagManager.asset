@@ -8,6 +8,7 @@ TagManager:
   - Cover
   - Stairs
   - Torch
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
-  - 
-  - 
+  - Obstacle
+  - Enemy
+  - Walls
   - 
   - 
   - 
