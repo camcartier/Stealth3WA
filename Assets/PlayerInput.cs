@@ -89,6 +89,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e2da124-fc21-4ee6-98ee-d5faab68f351"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -480,7 +489,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3679b1b5-3cfe-4f37-8b69-a69243b44dae"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -498,6 +507,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Cover"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94bb72a0-a483-4aba-8a10-068449289e59"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -513,6 +533,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Main_Use = m_Main.FindAction("Use", throwIfNotFound: true);
         m_Main_Camera = m_Main.FindAction("Camera", throwIfNotFound: true);
         m_Main_Cover = m_Main.FindAction("Cover", throwIfNotFound: true);
+        m_Main_Roll = m_Main.FindAction("Roll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -579,6 +600,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_Use;
     private readonly InputAction m_Main_Camera;
     private readonly InputAction m_Main_Cover;
+    private readonly InputAction m_Main_Roll;
     public struct MainActions
     {
         private @PlayerInput m_Wrapper;
@@ -590,6 +612,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Use => m_Wrapper.m_Main_Use;
         public InputAction @Camera => m_Wrapper.m_Main_Camera;
         public InputAction @Cover => m_Wrapper.m_Main_Cover;
+        public InputAction @Roll => m_Wrapper.m_Main_Roll;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -620,6 +643,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Cover.started -= m_Wrapper.m_MainActionsCallbackInterface.OnCover;
                 @Cover.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnCover;
                 @Cover.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnCover;
+                @Roll.started -= m_Wrapper.m_MainActionsCallbackInterface.OnRoll;
+                @Roll.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnRoll;
+                @Roll.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnRoll;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -645,6 +671,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Cover.started += instance.OnCover;
                 @Cover.performed += instance.OnCover;
                 @Cover.canceled += instance.OnCover;
+                @Roll.started += instance.OnRoll;
+                @Roll.performed += instance.OnRoll;
+                @Roll.canceled += instance.OnRoll;
             }
         }
     }
@@ -658,5 +687,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnUse(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
         void OnCover(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
 }

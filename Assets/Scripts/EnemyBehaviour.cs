@@ -38,7 +38,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void Awake()
     {
         _rbEnemy = GetComponentInChildren<Rigidbody>();
-        _player = GameObject.Find("Azri_TPose");
+        _player = GameObject.Find("Azri");
         _enemyMat = GetComponentInChildren<Renderer>();
         _noiseTracker.value = 0;
     }
