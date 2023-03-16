@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 914016901}
   - component: {fileID: 914016903}
   - component: {fileID: 914016902}
+  - component: {fileID: 8468362414809000109}
   m_Layer: 8
   m_Name: EnemyZone
-  m_TagString: Untagged
+  m_TagString: WarningZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,6 +116,19 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!135 &8468362414809000109
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914016900}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.75
+  m_Center: {x: 0, y: 0, z: 3}
 --- !u!1 &1079618296
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +504,51 @@ Transform:
   m_Father: {fileID: 6543473270135174104}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3813697313847623225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1380580508660411853}
+  - component: {fileID: 9130866083241393259}
+  m_Layer: 8
+  m_Name: EnemyFOVTemp
+  m_TagString: EnemyFOV
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1380580508660411853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3813697313847623225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6543473270135174104}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &9130866083241393259
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3813697313847623225}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.0490519
+  m_Center: {x: 0, y: 1.0582329, z: 0.6982734}
 --- !u!1 &3982834543411747318
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +899,7 @@ GameObject:
   - component: {fileID: 4735567379845972942}
   m_Layer: 8
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -862,6 +921,7 @@ Transform:
   - {fileID: 4045434776232382094}
   - {fileID: 914016901}
   - {fileID: 298147156389463897}
+  - {fileID: 1380580508660411853}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -9,6 +9,9 @@ TagManager:
   - Stairs
   - Torch
   - Obstacle
+  - EnemyFOV
+  - WarningZone
+  - Enemy
   layers:
   - Default
   - TransparentFX

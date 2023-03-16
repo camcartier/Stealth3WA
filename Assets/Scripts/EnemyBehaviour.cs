@@ -13,6 +13,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Rigidbody _rbEnemy;
     private GameObject _player;
     private Renderer _enemyMat;
+    private GameObject _gameManager;
     #endregion
 
     #region Detection Data
@@ -38,7 +39,8 @@ public class EnemyBehaviour : MonoBehaviour
     private void Awake()
     {
         _rbEnemy = GetComponentInChildren<Rigidbody>();
-        _player = GameObject.Find("Azri");
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _gameManager = GameObject.Find("GameManager");
         _enemyMat = GetComponentInChildren<Renderer>();
         _noiseTracker.value = 0;
     }
@@ -69,16 +71,27 @@ public class EnemyBehaviour : MonoBehaviour
             //Debug.Log("timercounter" + timerCounterMeter);
         }
 
-        if (timerCounterMeter > waitDuration)
+        if (timerCounterMeter > waitDuration && _player.GetComponent<PlayerController>()._isRunning)
         {
-            _noiseTracker.value += 2;
+            _noiseTracker.value += 22;
+            timerCounterMeter = 0;
+        }
+        if (timerCounterMeter > waitDuration && _player.GetComponent<PlayerController>()._isWalking)
+        {
+            _noiseTracker.value += 16;
+            timerCounterMeter = 0;
+        }
+        if (timerCounterMeter > waitDuration && _player.GetComponent<PlayerController>()._isCrouching)
+        {
+            _noiseTracker.value += 4;
             timerCounterMeter = 0;
         }
 
         if (_noiseTracker.value > 100)
         {
             Debug.Log("DETECTED");
-            _enemyMat.material.color = Color.red;
+            ChangeColor();
+            _gameManager.GetComponentInChildren<GameManager>()._playerIsDetected = true;
         }
     }
 
@@ -154,5 +167,10 @@ public class EnemyBehaviour : MonoBehaviour
     {
         //if playerIsDetected = true
         //go to loot position and leave
+    }
+
+    public void ChangeColor()
+    {
+        _enemyMat.material.color = Color.red;
     }
 }

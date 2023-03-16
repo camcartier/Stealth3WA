@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
     private Animator _animator;
     //camera est dans essentials car on va utiliser son forward pour agir sur le forward du player
     private Transform _cameraTransform;
+    private GameManager _gameManager;
     #endregion
 
     #region Camera
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
 
     [SerializeField] GameObject _coverPanel;
     [SerializeField] GameObject _isInsideLigthPanel;
+    [SerializeField] GameObject _warningPanel;
 
     private void Awake()
     {
@@ -113,6 +115,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         _rb= GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _camera = GameObject.Find("Main Camera");
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         floorDetector = GetComponentInChildren<FloorDetector>();
     }
@@ -186,7 +189,7 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
 
         _takeCover = playerInput.Main.Cover.ReadValue<float>()>0;
 
-        if (_move.magnitude > 0.1 && !_isRunning && _isGrounded)
+        if (_move.magnitude > 0.1 && !_isRunning && !_isCrouching && _isGrounded)
         {
             _isWalking = true;
             _animator.SetBool("walking", true);
@@ -212,6 +215,11 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         {
             _animator.SetTrigger("use");
             Debug.Log("use");
+        }
+        if (playerInput.Main.Roll.triggered)
+        {
+            _animator.SetTrigger("roll");
+            Debug.Log("roll");
         }
         if (_isCrouching)
         {
@@ -309,6 +317,15 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
             _isInsideLigthPanel.SetActive(true);
         }
 
+        if (collision.CompareTag("EnemyFOV"))
+        {
+            _gameManager._playerIsDetected = true;
+        }
+
+        if (collision.CompareTag("WarningZone"))
+        {
+            _warningPanel.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider collision)
@@ -323,6 +340,12 @@ public class PlayerController : MonoBehaviour  //, PlayerInput.IMainActions
         {
             _isInsideLight = false;
             _isInsideLigthPanel.SetActive(false);
+        }
+
+        if (collision.CompareTag("WarningZone"))
+        {
+            _warningPanel.SetActive(false);
+            _gameManager._canCooldown = true;
         }
     }
 

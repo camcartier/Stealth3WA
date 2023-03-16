@@ -424,16 +424,11 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: TSMGWorldJoint/Root
-    rigImportErrors: 
+    rigImportErrors: "Copied Avatar Rig Configuration mis-match. Transform hierarchy
+      does not match:\n\tTransform 'mixamorig:Hips' for human bone 'Hips' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'leftArm1_HiResUpperArmTwist' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'leftArm1_HiResLowerArmTwist'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'rightArm1_HiResUpperArmTwist'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'rightArm1_HiResLowerArmTwist'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -1419,13 +1414,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Azri_TPose(Clone)
+    - name: Azri(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: azri
-      parentName: Azri_TPose(Clone)
+      parentName: Azri(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
@@ -1465,7 +1460,7 @@ ModelImporter:
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
-      parentName: Azri_TPose(Clone)
+      parentName: Azri(Clone)
       position: {x: 0.000065695924, y: 1.0555094, z: -0.0075811157}
       rotation: {x: 0.00001837287, y: 0.00002411613, z: -0.000748292, w: 0.99999976}
       scale: {x: 1, y: 1, z: 1}
@@ -1805,7 +1800,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: cd2f6f4180efdc14fbc8f956435bdd34,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ad0ed6db3ad83ad48af68b6c902817b9,
     type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
